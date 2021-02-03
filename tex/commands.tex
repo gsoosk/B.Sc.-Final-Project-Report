@@ -10,6 +10,7 @@
 \usepackage[a4paper, top=40mm, bottom=40mm, outer=25mm, inner=35mm]{geometry}
 % بسته‌‌ای برای ظاهر شدن شکل‌ها و تعیین آدرس تصاویر
 \usepackage[final]{graphicx}
+\usepackage{booktabs}
 \graphicspath{{./img/}}
 % بسته‌های مورد نیاز برای نوشتن کدها، رنگ‌آمیزی آنها و تعیین پوشهٔ کدها
 \usepackage[final]{listings}
@@ -53,6 +54,17 @@ colorlinks,linkcolor=blue,citecolor=blue,final]{hyperref}
 \usepackage[obeyDraft]{todonotes}
 \setlength{\marginparwidth}{2cm}
 
+\usepackage{tikz}
+\usepackage{tikzit}
+\usepackage{pgfplots}
+%\usepackage{subcaption}
+% \usepackage{hyperref}
+
+\input{tikz/defs.tex}
+\input{tikz/styles.sty}
+\input{plots/revenues/revenue}
+\input{plots/costs/cost}
+
 %%%%%%%%%%%%
 %%% تصحیح باگ: اگر در مراجع، آدرس وب حاوی '%' بوده و pagebackref فعال باشد، دستورات زیر باید بیایند:
 %% برای استیل‌های natbib مثل plainnat-fa، asa-fa، chicago-fa
@@ -74,8 +86,9 @@ colorlinks,linkcolor=blue,citecolor=blue,final]{hyperref}
 %\usepackage{enumitem}
 \usepackage{setspace}
 % بسته‌های لازم برای نوشتن الگوریتم
-\usepackage{algorithm}
-\usepackage{algorithmic}
+%\usepackage{algorithm}
+%\usepackage{algorithmic}
+\usepackage[linesnumbered,ruled,vlined,noend]{algorithm2e}
 % بسته‌های لازم برای رسم بهتر جداول
 \usepackage{tabulary}
 \usepackage{tabularx}
@@ -84,6 +97,8 @@ colorlinks,linkcolor=blue,citecolor=blue,final]{hyperref}
 \usepackage[export]{adjustbox}
 \usepackage{subfig}
 \usepackage[subfigure]{tocloft}
+%\usepackage{subcaption}
+%\captionsetup{compatibility=false}
 % بسته‌ای برای رسم نمودارها و نیز صفحه مالکیت اثر
 \usepackage{tikz}
 % بسته‌ای برای ظاهر شدن «مراجع» و «نمایه» در فهرست مطالب
@@ -182,47 +197,47 @@ colorlinks,linkcolor=blue,citecolor=blue,final]{hyperref}
 \theoremstyle{definition}
 \newtheorem{example}[definition]{مثال}
 
-%\renewcommand{\theequation}{\thechapter-\arabic{equation}}
-%\def\bibname{مراجع}
-\numberwithin{algorithm}{chapter}
-\def\listalgorithmname{فهرست الگوریتم‌ها}
+\renewcommand{\theequation}{\thechapter-\arabic{equation}}
+\def\bibname{مراجع}
+%\numberwithin{algorithm}{chapter}
+%\def\listalgorithmname{فهرست الگوریتم‌ها}
 \def\listfigurename{فهرست تصاویر}
 \def\listtablename{فهرست جداول}
 
 % دستور های لازم برای تعریف ترجمهٔ دستورات الگوریتم
-\makeatletter
-\renewcommand{\algorithmicrequire}{\if@RTL\textbf{ورودی:}\else\textbf{Require:}\fi}
-\renewcommand{\algorithmicensure}{\if@RTL\textbf{خروجی:}\else\textbf{Ensure:}\fi}
-\renewcommand{\algorithmicend}{\if@RTL\textbf{پایان}\else\textbf{end}\fi}
-\renewcommand{\algorithmicif}{\if@RTL\textbf{اگر}\else\textbf{if}\fi}
-\renewcommand{\algorithmicthen}{\if@RTL\textbf{آنگاه}\else\textbf{then}\fi}
-\renewcommand{\algorithmicelse}{\if@RTL\textbf{وگرنه}\else\textbf{else}\fi}
-\renewcommand{\algorithmicfor}{\if@RTL\textbf{برای}\else\textbf{for}\fi}
-\renewcommand{\algorithmicforall}{\if@RTL\textbf{برای هر}\else\textbf{for all}\fi}
-\renewcommand{\algorithmicdo}{\if@RTL\textbf{انجام بده}\else\textbf{do}\fi}
-\renewcommand{\algorithmicwhile}{\if@RTL\textbf{تا زمانی که}\else\textbf{while}\fi}
-\renewcommand{\algorithmicloop}{\if@RTL\textbf{تکرار کن}\else\textbf{loop}\fi}
-\renewcommand{\algorithmicrepeat}{\if@RTL\textbf{تکرار کن}\else\textbf{repeat}\fi}
-\renewcommand{\algorithmicuntil}{\if@RTL\textbf{تا زمانی که}\else\textbf{until}\fi}
-\renewcommand{\algorithmicprint}{\if@RTL\textbf{چاپ کن}\else\textbf{print}\fi}
-\renewcommand{\algorithmicreturn}{\if@RTL\textbf{بازگردان}\else\textbf{return}\fi}
-\renewcommand{\algorithmicand}{\if@RTL\textbf{و}\else\textbf{and}\fi}
-\renewcommand{\algorithmicor}{\if@RTL\textbf{و یا}\else\textbf{or}\fi} % TODO add better translate
-\renewcommand{\algorithmicxor}{\if@RTL\textbf{یا}\else\textbf{xor}\fi} % TODO add better translate
-\renewcommand{\algorithmicnot}{\if@RTL\textbf{نقیض}\else\textbf{not}\fi}
-\renewcommand{\algorithmicto}{\if@RTL\textbf{تا}\else\textbf{to}\fi}
-\renewcommand{\algorithmicinputs}{\if@RTL\textbf{ورودی‌ها}\else\textbf{inputs}\fi}
-\renewcommand{\algorithmicoutputs}{\if@RTL\textbf{خروجی‌ها}\else\textbf{outputs}\fi}
-\renewcommand{\algorithmicglobals}{\if@RTL\textbf{متغیرهای عمومی}\else\textbf{globals}\fi}
-\renewcommand{\algorithmicbody}{\if@RTL\textbf{انجام بده}\else\textbf{do}\fi}
-\renewcommand{\algorithmictrue}{\if@RTL\textbf{درست}\else\textbf{true}\fi}
-\renewcommand{\algorithmicfalse}{\if@RTL\textbf{نادرست}\else\textbf{false}\fi}
-\renewcommand{\algorithmicendif}{\algorithmicend\textbf{ شرط }\algorithmicif}
-\renewcommand{\algorithmicendfor}{\algorithmicend\textbf{ حلقهٔ }\algorithmicfor}
-\renewcommand{\algorithmicendwhile}{\algorithmicend\textbf{ حلقهٔ }\algorithmicwhile}
-\renewcommand{\algorithmicendloop}{\algorithmicend\textbf{ حلقهٔ }\algorithmicloop}
-\renewcommand{\algorithmiccomment}[1]{\{{\itshape #1}\}}
-\makeatletter
+%\makeatletter
+%\renewcommand{\algorithmicrequire}{\if@RTL\textbf{ورودی:}\else\textbf{Require:}\fi}
+%\renewcommand{\algorithmicensure}{\if@RTL\textbf{خروجی:}\else\textbf{Ensure:}\fi}
+%\renewcommand{\algorithmicend}{\if@RTL\textbf{پایان}\else\textbf{end}\fi}
+%\renewcommand{\algorithmicif}{\if@RTL\textbf{اگر}\else\textbf{if}\fi}
+%\renewcommand{\algorithmicthen}{\if@RTL\textbf{آنگاه}\else\textbf{then}\fi}
+%\renewcommand{\algorithmicelse}{\if@RTL\textbf{وگرنه}\else\textbf{else}\fi}
+%\renewcommand{\algorithmicfor}{\if@RTL\textbf{برای}\else\textbf{for}\fi}
+%\renewcommand{\algorithmicforall}{\if@RTL\textbf{برای هر}\else\textbf{for all}\fi}
+%\renewcommand{\algorithmicdo}{\if@RTL\textbf{انجام بده}\else\textbf{do}\fi}
+%\renewcommand{\algorithmicwhile}{\if@RTL\textbf{تا زمانی که}\else\textbf{while}\fi}
+%\renewcommand{\algorithmicloop}{\if@RTL\textbf{تکرار کن}\else\textbf{loop}\fi}
+%\renewcommand{\algorithmicrepeat}{\if@RTL\textbf{تکرار کن}\else\textbf{repeat}\fi}
+%\renewcommand{\algorithmicuntil}{\if@RTL\textbf{تا زمانی که}\else\textbf{until}\fi}
+%\renewcommand{\algorithmicprint}{\if@RTL\textbf{چاپ کن}\else\textbf{print}\fi}
+%\renewcommand{\algorithmicreturn}{\if@RTL\textbf{بازگردان}\else\textbf{return}\fi}
+%\renewcommand{\algorithmicand}{\if@RTL\textbf{و}\else\textbf{and}\fi}
+%\renewcommand{\algorithmicor}{\if@RTL\textbf{و یا}\else\textbf{or}\fi} % TODO add better translate
+%\renewcommand{\algorithmicxor}{\if@RTL\textbf{یا}\else\textbf{xor}\fi} % TODO add better translate
+%\renewcommand{\algorithmicnot}{\if@RTL\textbf{نقیض}\else\textbf{not}\fi}
+%\renewcommand{\algorithmicto}{\if@RTL\textbf{تا}\else\textbf{to}\fi}
+%\renewcommand{\algorithmicinputs}{\if@RTL\textbf{ورودی‌ها}\else\textbf{inputs}\fi}
+%\renewcommand{\algorithmicoutputs}{\if@RTL\textbf{خروجی‌ها}\else\textbf{outputs}\fi}
+%\renewcommand{\algorithmicglobals}{\if@RTL\textbf{متغیرهای عمومی}\else\textbf{globals}\fi}
+%\renewcommand{\algorithmicbody}{\if@RTL\textbf{انجام بده}\else\textbf{do}\fi}
+%\renewcommand{\algorithmictrue}{\if@RTL\textbf{درست}\else\textbf{true}\fi}
+%\renewcommand{\algorithmicfalse}{\if@RTL\textbf{نادرست}\else\textbf{false}\fi}
+%\renewcommand{\algorithmicendif}{\algorithmicend\textbf{ شرط }\algorithmicif}
+%\renewcommand{\algorithmicendfor}{\algorithmicend\textbf{ حلقهٔ }\algorithmicfor}
+%\renewcommand{\algorithmicendwhile}{\algorithmicend\textbf{ حلقهٔ }\algorithmicwhile}
+%\renewcommand{\algorithmicendloop}{\algorithmicend\textbf{ حلقهٔ }\algorithmicloop}
+%\renewcommand{\algorithmiccomment}[1]{\{{\itshape #1}\}}
+%\makeatletter
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% دستورهایی برای سفارشی کردن سربرگ صفحات:
@@ -259,6 +274,10 @@ colorlinks,linkcolor=blue,citecolor=blue,final]{hyperref}
 \renewcommand\cftpartpresnum{\partname~}
 \renewcommand\cftchappresnum{\chaptername~}
 \renewcommand\cftchapaftersnum{:}
+
+\newcommand{\ourAlgName}{\lr{GraphViNE}}
+\newcommand{\ourAlg}{\ourAlgName}
+\newcommand{\ourAlgFull}{Graph Neural Network Accelerated Virtual Network Embedding}
 
 \settowidth\mylenprt{\cftpartfont\cftpartpresnum\cftpartaftersnum}
 \settowidth\mylenchp{\cftchapfont\cftchappresnum\cftchapaftersnum}
@@ -331,7 +350,7 @@ colorlinks,linkcolor=blue,citecolor=blue,final]{hyperref}
 }
 \lstset{style=myStyle} % command to set default style
 \def\lstlistingname{\rl{برنامهٔ}}
-\def\lstlistlistingname{\rl{فهرست برنامه‌ها}}
+%\def\lstlistlistingname{\rl{فهرست برنامه‌ها}}
 
 
 % for numbering subsubsections
